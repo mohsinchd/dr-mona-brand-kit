@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dr. Mona — Book a consultation · closing slide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,900&family=Poppins:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     CLOSING CTA SLIDE  ·  1080 × 1080  — the LAST slide of a carousel.
+     Centre-anchored throughout: that is what makes it read as a closing
+     card rather than a repeat of the message slide. No swipe arrow.
+     Built around the client's own CTA artwork — never typeset a substitute.
+     see references/cta-slide.md
+     ============================================================ */
+  :root{
+    /* ---- PER-POST: the same block as the message slides ---- */
+    --ground:      #B8A9C9;
+    --ground-deep: #9C87B4;
+    --accent:      #3F314E;
+    /* ---- FIXED ---- */
+    --cream:    #FDFCF5;
+    --ink:      #2A2530;
+    --ink-soft: #514A5C;
+    --panel: linear-gradient(152deg, rgba(253,252,245,.60) 0%,
+                                     rgba(253,252,245,.32) 54%,
+                                     rgba(253,252,245,.46) 100%);
+    --pad-edge: 46px;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:#8f8f8f; display:flex; align-items:center; justify-content:center;
+        font-family:'Poppins',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  @media (min-width:1200px){          /* preview chrome only — see slide-content.html */
+    body{ padding:40px; min-height:100vh; }
+    .canvas{ box-shadow:0 30px 90px rgba(0,0,0,.35); }
+  }
+
+  .canvas{ position:relative; width:1080px; height:1080px; overflow:hidden;
+           background:var(--ground); flex:none; }
+  .canvas::before{ content:''; position:absolute; inset:0; z-index:1;
+    background:
+      radial-gradient(58% 40% at 50% 8%,   rgba(255,255,255,.36) 0%, rgba(255,255,255,0) 72%),
+      radial-gradient(92% 56% at 50% 106%, rgba(38,28,50,.24)    0%, rgba(38,28,50,0)    66%); }
+  .canvas::after{ content:''; position:absolute; inset:0; z-index:2; opacity:.26; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E"); }
+
+  .art{ position:absolute; inset:0; z-index:3; pointer-events:none; }
+  .art .glow-cream{ stop-color:var(--cream); }
+  .art .glow-accent{ stop-color:var(--accent); }
+  .art .rings{ stroke:var(--cream); }
+  .art .curves{ stroke:var(--ground-deep); }
+  .art .dots{ fill:var(--accent); }
+  .art .frond{ stroke:var(--accent); }
+
+  .stage{ position:absolute; inset:0; z-index:5; display:flex; flex-direction:column;
+          align-items:center; text-align:center; padding:40px var(--pad-edge) 84px; }
+
+  /* ---------------- centred brand block ---------------- */
+  .markwrap{
+    width:138px; height:138px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--panel);
+    -webkit-backdrop-filter:blur(22px) saturate(1.28); backdrop-filter:blur(22px) saturate(1.28);
+    border:1.6px solid rgba(255,255,255,.60);
+    box-shadow:0 16px 36px rgba(48,36,62,.18), inset 0 1px 0 rgba(255,255,255,.80);
+  }
+  .markwrap img{ height:86px; width:auto; display:block; }
+  .brandname{ margin-top:16px; font-size:30px; font-weight:600; letter-spacing:3px; color:var(--cream); }
+  .brandsub{ margin-top:5px; font-size:13px; font-weight:500; letter-spacing:2.6px;
+             text-transform:uppercase; color:rgba(253,252,245,.80); }
+
+  /* ---------------- headline ---------------- */
+  .eyebrow{ display:flex; align-items:center; justify-content:center; gap:16px; margin-top:34px; }
+  .eyebrow i{ display:block; width:66px; height:1.6px;
+              background:linear-gradient(90deg, transparent, var(--accent)); opacity:.55; }
+  .eyebrow i:last-child{ background:linear-gradient(90deg, var(--accent), transparent); }
+  .eyebrow span{ font-size:17px; font-weight:700; letter-spacing:5.5px;
+                 text-transform:uppercase; color:var(--accent); }
+
+  h1{ margin-top:14px; line-height:1; }
+  h1 .a{ display:block; font-family:'Playfair Display',Georgia,serif;
+         font-size:66px; font-weight:900; color:var(--ink); }
+  /* the one Caveat accent on this slide — bottom:-4px keeps the squiggle off the baseline */
+  h1 .b{ display:block; position:relative; margin-top:2px;
+         font-family:'Caveat',cursive; font-size:100px; font-weight:700;
+         color:var(--accent); line-height:1.02; }
+  h1 .b svg{ position:absolute; left:50%; transform:translateX(-50%); bottom:-4px;
+             width:300px; height:18px; color:var(--accent); opacity:.68; }
+  .lede{ margin-top:22px; max-width:790px; font-size:24px; font-weight:500;
+         line-height:1.5; color:var(--ink-soft); }
+
+  /* leaf ornament — margin-top:auto splits the slack either side of it */
+  .orn{ margin-top:auto; display:flex; align-items:center; gap:14px;
+        color:var(--accent); opacity:.55; }
+  .orn i{ display:block; width:82px; height:1.5px;
+          background:linear-gradient(90deg, transparent, currentColor); }
+  .orn i:last-child{ background:linear-gradient(90deg, currentColor, transparent); }
+  .orn svg{ width:30px; height:30px; }
+
+  /* ---------------- the client's CTA artwork, on glass ---------------- */
+  /* ~250px of canvas height at full content width. Its black type NEEDS a light ground,
+     which is what the glass panel is for. */
+  .cta{
+    margin-top:auto; width:100%;
+    padding:13px 16px; border-radius:26px;
+    background:var(--panel);
+    -webkit-backdrop-filter:blur(22px) saturate(1.28); backdrop-filter:blur(22px) saturate(1.28);
+    border:1.5px solid rgba(255,255,255,.55);
+    box-shadow:0 18px 42px rgba(48,36,62,.20), inset 0 1px 0 rgba(255,255,255,.80),
+               inset 0 0 0 1px rgba(75,58,97,.09);
+  }
+  .cta img{ display:block; width:100%; height:auto; }
+
+  /* the artwork does NOT contain the handle — it goes here, bottom-left as always */
+  .handle-bl{ position:absolute; left:var(--pad-edge); bottom:26px; z-index:6;
+              font-size:20px; font-weight:600; letter-spacing:.6px; color:rgba(253,252,245,.92); }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <svg class="art" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="g1" cx="50%" cy="50%">
+        <stop offset="0%" class="glow-cream" stop-opacity=".32"/>
+        <stop offset="100%" class="glow-cream" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="g2" cx="50%" cy="50%">
+        <stop offset="0%" class="glow-cream" stop-opacity=".18"/>
+        <stop offset="100%" class="glow-cream" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="g3" cx="50%" cy="50%">
+        <stop offset="0%" class="glow-accent" stop-opacity=".18"/>
+        <stop offset="100%" class="glow-accent" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <ellipse cx="540"  cy="170" rx="340" ry="240" fill="url(#g1)"/>
+    <ellipse cx="70"   cy="950" rx="320" ry="320" fill="url(#g2)"/>
+    <ellipse cx="1010" cy="980" rx="350" ry="300" fill="url(#g3)"/>
+
+    <!-- concentric "welcome rings" behind the brand mark -->
+    <g class="rings" fill="none" opacity=".24">
+      <circle cx="540" cy="152" r="122" stroke-width="1.4"/>
+      <circle cx="540" cy="152" r="168" stroke-width="1.2" stroke-dasharray="5 11"/>
+      <circle cx="540" cy="152" r="216" stroke-width="1" opacity=".7"/>
+    </g>
+
+    <g class="curves" stroke-linecap="round" fill="none">
+      <path d="M-40 470 C 260 400 620 560 1120 430" stroke-width="1.4" opacity=".26"/>
+      <path d="M-40 520 C 300 610 640 450 1120 580" stroke-width="1.2" opacity=".20"/>
+    </g>
+
+    <g class="dots" opacity=".44">
+      <circle cx="140" cy="420" r="2.4"/> <circle cx="220" cy="480" r="1.8"/>
+      <circle cx="900" cy="410" r="2.6"/> <circle cx="960" cy="470" r="1.8"/>
+      <circle cx="90"  cy="620" r="2"/>   <circle cx="990" cy="610" r="2.2"/>
+    </g>
+
+    <g class="frond" stroke-width="1.6" opacity=".36" stroke-linecap="round" fill="none">
+      <path d="M26 900 C 66 836 66 740 24 676"/>
+      <path d="M48 852 C 84 842 98 816 96 788"/>
+      <path d="M38 794 C 74 784 88 758 86 730"/>
+      <path d="M1054 900 C 1014 836 1014 740 1056 676"/>
+      <path d="M1032 852 C 996 842 982 816 984 788"/>
+      <path d="M1042 794 C 1006 784 992 758 994 730"/>
+    </g>
+  </svg>
+
+  <div class="stage">
+
+    <!-- The shipped plum mark belongs on a plum/lavender ground ONLY — on any other
+         ground it reads as a second hue. For every other ground run
+             python3 scripts/tint_logo.py "<your --accent>"
+         and point this src at the file it writes. -->
+    <div class="markwrap">
+      <img src="../../../assets/logo/logo-plum-mark.png" alt="Dr. Mona Ali clinic mark">
+    </div>
+    <div class="brandname">DR. MONA ALI</div>
+    <div class="brandsub">Psychiatric &amp; Drug Rehabilitation Clinic</div>
+
+    <div class="eyebrow"><i></i><span>{{CTA_EYEBROW}}</span><i></i></div>
+    <h1>
+      <span class="a">{{CTA_LINE_1}}</span>
+      <span class="b">{{CTA_LINE_2_SCRIPT}}
+        <svg viewBox="0 0 300 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12C52 4 106 4 152 9s94 6 143-4" stroke="currentColor"
+                stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </span>
+    </h1>
+    <p class="lede">{{CTA_LEDE}}</p>
+
+    <div class="orn">
+      <i></i>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21c0-6 3-10 9-11-1 7-4 10-9 11z"/>
+        <path d="M12 21C12 15 9 11 3 10c1 7 4 10 9 11z"/><path d="M12 21v-4"/>
+      </svg>
+      <i></i>
+    </div>
+
+    <!-- The client's own artwork. Re-tint it to the post's --accent, NOT to the ground:
+         the glass panel is a pale version of the ground, so a ground-tinted strip washes
+         out on it (checked — "DR. MONA" goes nearly invisible).
+             python3 scripts/retint_cta.py "<your --accent>"
+         Never typeset a substitute, and never overwrite cta.png. -->
+    <div class="cta">
+      <img src="../../../assets/cta/cta-plum-trimmed.png"
+           alt="Book your appointment: MON-SAT 6:00 - 9:00 PM, WhatsApp 0315-7090609. Dr. Mona, MBBS, MD, MRCPsych(UK), Psychiatrist.">
+    </div>
+
+  </div>
+
+  <div class="handle-bl">@dr.monaalisardar</div>
+</div>
+</body>
+</html>

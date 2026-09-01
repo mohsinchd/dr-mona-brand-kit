@@ -1,0 +1,15 @@
+{
+  "name": "dr-mona-brand",
+  "owner": { "name": "Dr. Mona Ali clinic — social" },
+  "metadata": {
+    "description": "The Dr. Mona Ali Instagram brand kit — design system, slash commands and assets.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "dr-mona",
+      "source": "./",
+      "description": "Build and export on-brand Instagram posts, carousels and reel covers for @dr.monaalisardar."
+    }
+  ]
+}

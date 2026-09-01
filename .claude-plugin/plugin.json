@@ -1,0 +1,7 @@
+{
+  "name": "dr-mona",
+  "version": "1.0.0",
+  "description": "Design and export on-brand Instagram content for Dr. Mona Ali — static posts, carousels and reel covers. Plain HTML/CSS rendered to PNG with headless Chrome.",
+  "author": { "name": "Dr. Mona Ali clinic — social" },
+  "keywords": ["instagram", "design-system", "carousel", "reel-cover", "html-to-png"]
+}
