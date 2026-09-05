@@ -1,99 +1,75 @@
-# The element map — fixed for every post and every slide
+# The invariants — furniture, type, material
 
-Canvas is **1080 × 1080**. Portrait 1080 × 1350 is allowed; only the middle stretches.
-Reel covers are 1080 × 1920 and have their own map (`reel-cover.md`).
+What every post has in common. **This is not a layout.** The arrangement is designed per
+post — see `references/composition.md`.
+
+Canvas is **1080 × 1080**. Portrait 1080 × 1350 and reel 1080 × 1920 are allowed; the
+furniture below does not change with the canvas, only the space between it does.
+
+---
+
+## 1. The furniture — four fixed elements
 
 ```
 ┌────────────────────────────────────────────────────────────┐
-│ ①  masthead: logo mark + wordmark        top-left, y=24    │
+│ ① masthead — top, left or centred                          │
 │                                                            │
-│ ②  title block                              centred        │
-│      topic glyph                                           │
-│      ─── EYEBROW ───   (17px, 6px tracking, --accent)      │
-│      LINE ONE          (Playfair 900 caps, 88px)           │
-│      LINE TWO          (Playfair 900 caps ITALIC, 88px)    │
-│      ▔▔▔▔▔▔▔▔▔▔  3px rule, 340px + 170px hairline          │
 │                                                            │
-│ ③  supporting line / mantra                 centred        │
-│ ④  lede paragraph              centred, max-width 820px    │
+│              ← everything in here is designed →            │
+│                     (composition.md)                       │
 │                                                            │
-│ ⑤  ONE content row  (three glass cards)   margin-top:auto  │
 │                                                            │
-│ ⑥  closing line     (Caveat, centred, leaf glyph each side)│
-│                                                            │
-│ ⑦ handle bottom-LEFT          ⑧ swipe arrow bottom-RIGHT   │
+│ ② handle bottom-LEFT           ③ swipe arrow bottom-RIGHT   │
 └────────────────────────────────────────────────────────────┘
 ```
 
-| # | Element | Exact placement | Notes |
+| # | Element | Placement | Spec |
 |---|---|---|---|
-| ① | Masthead | flow, `padding-top:24px`, left-aligned | mark 54px tall + `DR. MONA ALI` 22px / subtitle 11.5px |
-| ② | Title block | flow, centred, `margin-top:26px` | see below |
-| ③ | Mantra | flow, centred, `margin-top:22px` | supporting size — never rivals ② |
-| ④ | Lede | flow, centred, `margin:20px auto 0`, `max-width:820px` | 25px / 1.5 |
-| ⑤ | Content row | flow, `margin-top:auto` | pins the row low and absorbs slack |
-| ⑥ | Closing line | flow, centred, `margin-top:24px` | last flowed element |
-| ⑦ | Handle | **absolute** `left:var(--pad-edge); bottom:26px` | 20px Poppins 600 cream — bottom-left on **every** slide |
-| ⑧ | Swipe arrow | **absolute** `right:var(--pad-edge); bottom:32px` | carousel slides `1 … N-1` only |
+| ① | Masthead | top, `padding-top:24px`. **Left-aligned by default**; centred is allowed, and is the usual choice on a closing card. | logo mark 54px + `DR. MONA ALI` 22px / subtitle 11.5px, in `--cream` |
+| ② | Handle | **absolute** `left:var(--pad-edge); bottom:26px`. Never anywhere else, on any slide. | `@dr.monaalisardar`, 20px Poppins 600, `rgba(cream,.92)` |
+| ③ | Swipe arrow | **absolute** `right:var(--pad-edge); bottom:32px`. Carousel slides `1 … N-1` only. | a bare 200px arrow, `rgba(cream,.92)` |
 
-⑦ and ⑧ are absolute, so they leave the flow — **the stage needs `padding-bottom:66px`**
-or the closing line collides with them.
+`--pad-edge` is **46px** on square and portrait, **78px** on a reel cover.
 
-```css
-.stage{ position:absolute; inset:0; z-index:5;
-        display:flex; flex-direction:column;
-        padding:24px var(--pad-edge) 66px; }
-```
+② and ③ are absolute, so they have left the flow — **keep the bottom 66px of the stage
+clear** or whatever you compose will collide with them.
 
-③ and ④ are optional. Use one or the other on a dense slide, both only when the row is
-light. Dropping both is fine — the title block plus the row is a complete composition.
-
-### Never on any slide
+### Never, on any slide
 - Pagination dots.
 - A "SWIPE NEXT" label — the arrow alone carries it.
 - A `DM` monogram — the real logo mark replaces it.
 - The handle anywhere other than bottom-left.
 
----
-
-## The title block — the occasion outranks the slogan
-
-The occasion or topic is the **largest thing on the slide**. A slogan or mantra is
-support. Getting this backwards has been rejected before.
-
+### The swipe arrow
 ```html
-<div class="day">
-  <svg class="ribbon">…</svg>                            <!-- topic glyph, 40px -->
-  <div class="eyebrow"><i></i><span>Awareness</span><i></i></div>
-  <h1><span class="a">World Suicide</span>
-      <span class="b">Prevention Day</span></h1>          <!-- .b is italic -->
-  <div class="rules"><i></i><i></i></div>
+<div class="swipe-cue" aria-label="Swipe for the next slide">
+  <svg viewBox="0 0 200 16" fill="none">
+    <path d="M2 8H176" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M174 1.4 198 8 174 14.6Z" fill="currentColor"/>
+  </svg>
 </div>
 ```
 
-- Both lines **Playfair Display 900 caps at 88px**, `line-height:.96`.
-- **Line two is italic.** The roman/italic pair *is* the styling — no colour change, no
-  outline, no second hue.
-- Eyebrow rules fade outward: `linear-gradient(90deg, transparent, rgba(accent,.55))`,
-  mirrored on the right.
-- Rules beneath: 340px × 3px at 72% opacity, then 170px × 1.6px at 42%, 5px apart.
-- **`margin-top:26px` on `.rules` is a minimum** — less and the rule collides with
-  Playfair italic descenders.
-- A very long title may drop to 78px, or split across three lines with the last italic.
-  Below 72px, shorten the words instead — the size is the point.
-- **Line two is the one that overruns.** Playfair italic is noticeably wider than the
-  roman at the same size, so a line-two of about 16 characters or more will reach the
-  edge at 88px. Check the render, not the source.
+---
+
+## 2. Hierarchy — the one rule about arrangement
+
+**The occasion outranks the slogan.** The topic or awareness day is the largest thing on
+the slide; a mantra is support. Getting this backwards has been rejected before.
+
+That is a rule about *rank*, not about position or form. The topic can be centred, ranged
+left, split across a photograph or set as one oversized word — as long as it is
+unmistakably the thing the eye hits first.
 
 ---
 
-## Typography — four voices, always the same four
+## 3. Typography — four voices, always the same four
 
-| Role | Face | Size | Notes |
+| Role | Face | Typical size | Notes |
 |---|---|---|---|
-| Display heading | Playfair Display 900 | 88px caps | line two italic |
-| Secondary heading | Playfair Display 900 | 54–66px | roman + italic mix on one line |
-| Script accent | **Caveat 700** | 1.35 × the serif it sits beside | one accent word or one closing line — never more |
+| Display | Playfair Display 900 | 88px caps on a square; up to 300px for a hero figure | pair roman with italic — that pairing *is* the styling; no colour change, no outline |
+| Secondary | Playfair Display 900 | 54–66px | roman + italic mix on one line |
+| Script accent | **Caveat 700** | ≈1.35 × the serif beside it | one accent word or one closing line per slide — never more |
 | Everything else | Poppins 400–700 | below | eyebrows, lede, card copy, handle, CTA |
 
 ```
@@ -102,8 +78,19 @@ card heading 27px / 3.4px tracking   ·  card body 20px / 1.45
 handle 20px   ·  masthead wordmark 22px   ·  masthead subtitle 11.5px
 ```
 
-**The Caveat underline squiggle** (under an accent word) needs `bottom:-9px` on the SVG
-and `line-height:1.12` on its span, or it reads as a strikethrough.
+**These are starting points, not a fixed scale.** Scale them to the composition — a hero
+figure wants 260px, a quote plate wants 110px, a stacked-row list wants its headings at
+32px. What must hold is the *ratio*: roughly 3.5× / 1.6× / 1× between display, secondary
+and body. Two elements within 15% of each other's size read as a mistake.
+
+**Larger is almost always the right call.** This has been asked for four separate times.
+When something does not fit, buy the space from spacing and layout — never from font size.
+
+**Playfair italic is noticeably wider than the roman** at the same size, so a long italic
+line is what overruns the canvas first. Check the render, not the source.
+
+**The Caveat underline squiggle** (under an accent word) needs `bottom:-9px` on the SVG and
+`line-height:1.12` on its span, or it reads as a strikethrough.
 
 Load all three from Google Fonts — headless Chrome fetches them at render time:
 
@@ -113,13 +100,13 @@ Load all three from Google Fonts — headless Chrome fetches them at render time
 
 ---
 
-## Glass panels
+## 4. Glass — the one panel material
 
-Every card and every panel uses one recipe. **Never mix a glass panel with an opaque one
-on the same slide.**
+Whatever form a panel takes — a card, a strip, a circle, a full-width plate — it uses this
+recipe. **Never mix a glass panel with an opaque one on the same slide.**
 
 ```css
-.card, .cta{
+.glass{
   background:var(--panel);
   -webkit-backdrop-filter:blur(22px) saturate(1.28);
           backdrop-filter:blur(22px) saturate(1.28);
@@ -136,25 +123,41 @@ on the same slide.**
 - The border is a **light edge**, not a coloured hairline.
 - Put real background linework **behind** the panels — seeing it through the glass is the
   proof of the material.
+- Glass is a **pale version of the ground**. Anything sitting on it must be dark enough to
+  survive that: `--ink` / `--ink-soft` for type, `--accent` for marks.
+- A slide with no panels at all is a legitimate composition — often the strongest one.
 
-**Illustration disc inside a card:** 96px circle, `background:rgba(ground-deep,.30)`,
+**Illustration disc:** 96px circle, `background:rgba(ground-deep,.30)`,
 `border:1.5px solid rgba(accent,.34)`, holding a **48-viewBox** hand-drawn line
-illustration at 51px, stroke 1.9. Draw at 48, not 24 — 24-viewBox UI icons look thin here.
+illustration at 51px, stroke 1.9. Draw at 48, not 24 — a 24-viewBox UI icon looks thin at
+this size.
 
 ---
 
-## Background linework
+## 5. The field — depth under everything
 
-Every canvas carries three quiet layers under the content, in this order:
+Every canvas carries three quiet layers beneath the content:
 
-1. `.canvas::before` — two radial washes: a light one top-centre, a dark one bleeding off
-   the bottom. This is what gives the flat ground its depth.
-2. `.art` — an inline `<svg viewBox="0 0 1080 1080">` holding the drawn linework: soft
-   radial glow ellipses, two or three long horizontal curves in `--ground-deep`, a
-   scatter of `--accent` dots at ~46% opacity, and a leaf/frond flourish in the bottom
-   corners.
-3. `.canvas::after` — a fractal-noise grain tile at ~26% opacity. It is what stops the
-   gradients from banding.
+1. **A wash** — a light radial from above, a darker one bleeding off the bottom. This is
+   what stops the flat ground looking like a colour swatch.
+2. **Drawn linework** — an inline `<svg class="art" viewBox="0 0 1080 1080">` in
+   `--ground-deep` and `--accent`. **What that linework is, is a design decision.** Long
+   curves, concentric arcs, a dot field, rings, botanical fronds, a faint grid, rays, soft
+   blobs. Vary it per post — this is where a slide gets its character.
+3. **Grain** — a fractal-noise tile at ~26% opacity. It is what stops the gradients
+   banding. Keep it.
 
-Vary the linework per topic — different curves, a different flourish, a different glow
-placement. That is where a post gets its own character; the element map does not move.
+Style SVG through CSS classes (`.curves{ stroke:var(--ground-deep) }`) — a
+`stroke="var(--accent)"` *attribute* does not resolve.
+
+---
+
+## 6. Colour, on which surface
+
+| Sits on | Use |
+|---|---|
+| the ground | `--ink` headlines (`--cream` on a dark ground); `--cream` for light type; `--accent` for icons, rules, keylines, script accents |
+| glass | `--ink` headings, `--ink-soft` body, `--accent` marks |
+
+**Type is never set in the accent hue on the ground.** The accent is for marks, not words —
+the one exception being a Caveat accent word, which is a mark as much as a word.

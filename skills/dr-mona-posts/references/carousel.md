@@ -1,6 +1,7 @@
 # Building a carousel
 
-Read `layout-map.md` first — the element map is identical on every slide.
+Read `composition.md` first — the layout is designed per post. `layout-map.md` has the
+invariant furniture that is identical on every slide.
 
 ## How many slides
 
@@ -13,29 +14,36 @@ onto one canvas — this was learned the hard way ("too much bloated").
 **Default: 2 slides.** Go longer only when the content has genuinely separate beats — one
 idea per slide, each with its own title block and its own row. Never pad to reach a count.
 
-| Slide | Role | Composition | Arrow |
-|---|---|---|---|
-| 1 | Message | **left**-anchored masthead, centred title block, content row, closing line | yes |
-| 2 … N-1 | Further beats | same as slide 1, new title block and row | yes |
-| N | CTA | **centre**-anchored throughout — `cta-slide.md` | no |
+| Slide | Role | Arrow |
+|---|---|---|
+| 1 | Message — the topic, given full display treatment, and its content | yes |
+| 2 … N-1 | Further beats — one idea each, its own title and its own content | yes |
+| N | CTA — the closing card (`cta-slide.md`) | no |
 
-Flipping the anchor (left on the message slides, centred on the last) is deliberate: it
-makes the final slide read as a closing card rather than a repeat.
+**The closing card must read differently from the message slides.** Flipping the anchor —
+message slides ranged left, the closing card centred — is the usual way and it works, but
+any clear change of register does: a different density, a bare field where the others had
+panels, a single centred column where the others were split.
 
-## What stays identical across the slides
+## A carousel is a set — this is where the variation rule inverts
 
-- The ground and every derived token.
-- The masthead — same mark, same size, same position.
-- The handle, bottom-left, unmoved.
-- The type scale and the glass recipe.
+Between *posts*, differ boldly (`composition.md` §4). Between *slides of one carousel*,
+hold together:
 
-## What changes between slides
+**Identical across the slides**
+- the ground and every derived token
+- the masthead — same mark, same size, same position
+- the handle, bottom-left, unmoved
+- the type scale and the panel material
+- the alignment system: pick one and keep it across the message slides
 
-- The background linework: different curves, a different flourish, the glow moved.
-- The title block wording and its topic glyph.
-- The content row.
+**Changes between slides**
+- the background linework — different curves, a different flourish, the glow moved
+- the title wording and its topic glyph
+- the content, and how that particular content is arranged within the chosen system
 
-That is the whole variation budget. Moving elements between slides breaks the set.
+Moving the furniture between slides breaks the set. Changing the *architecture* between
+slide 1 and slide 2 of the same carousel breaks it too — that reads as two posts.
 
 ## The swipe arrow
 
@@ -66,6 +74,9 @@ ready-posts/YYYY-MM-DD/post-NN-topic/
     slide-02.png
 ```
 
-Start from `templates/slide-content.html` for the message slides and
-`templates/slide-cta.html` for the last one. Render every slide and look at all of them —
-a carousel is judged as a set.
+Start every slide from `templates/frame-square.html`; delete the `.swipe-cue` block on the
+last one. `examples/carousel-message.html` and `examples/carousel-cta.html` show finished
+slides — read them for craft, not to copy their layout.
+
+Render every slide and **look at all of them together** — a carousel is judged as a set,
+and a slide that is fine alone can still break the set.

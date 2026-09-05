@@ -1,7 +1,12 @@
 # Building a reel cover
 
-**1080 × 1920.** A different composition from the square posts — one alignment system
-(left), one photograph, type living in the air above it.
+**1080 × 1920.** Read `composition.md` — the cover is designed, like everything else. What
+follows is what the format constrains and a treatment that has shipped.
+
+A reel cover is read at **thumbnail size** before it is read at full size. That is its real
+constraint: the hook has to survive being 200px wide. It argues for fewer elements, larger
+type and higher contrast than a square post — usually one alignment system, one image, and
+type living in clear air.
 
 ## The crop that governs everything
 
@@ -13,7 +18,9 @@ bottom. So:
 The masthead can sit above it; the contact block and handle sit below it and are expected
 to be partly hidden in the grid.
 
-## Map
+## A treatment that has shipped
+
+Not the only one — but the proportions here are worth keeping whatever you build.
 
 | Element | Placement |
 |---|---|
@@ -26,7 +33,12 @@ to be partly hidden in the grid.
 | Contact block | `left:var(--pad-edge); bottom:198px` — hours 34px, "Book your appointment now:" 26px, WhatsApp pill 76px tall |
 | Handle | `left:var(--pad-edge); bottom:96px`, 26px |
 
-`--pad-edge` is **78px** on a reel cover, not 46px.
+`--pad-edge` is **78px** on a reel cover, not 46px — that one is fixed.
+
+**Fixed on every cover:** the canvas, the 300–1600 safe band, `--pad-edge:78px`, the
+masthead at the top, the contact block and the handle at the bottom-left, one hue plus
+white. Everything else — where the hook sits, whether there is a photograph and where,
+the field, the ornament — is designed per cover.
 
 The reel cover is the one place the contact details are typeset rather than using the CTA
 artwork — the strip's 4.136 aspect does not work in a 9:16 column. Use the exact strings
@@ -90,4 +102,5 @@ reels/YYYY-MM-DD/reel-NN-topic/
 python3 scripts/render.py cover.html --height 1920
 ```
 
-Start from `templates/reel-cover.html`.
+Start from `templates/frame-reel.html`. `examples/reel-cover.html` is the treatment above,
+built out — read it for craft, not to copy.

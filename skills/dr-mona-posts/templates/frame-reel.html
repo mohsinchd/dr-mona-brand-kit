@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dr. Mona — {{TOPIC}} · reel cover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Poppins:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     THE REEL COVER FRAME  ·  1080 × 1920
+
+     A chassis, not a layout. The INVARIANT blocks are fixed; the composition
+     is your design decision. Read references/composition.md and
+     references/reel-cover.md, design a cover for this topic, then write it.
+
+     THE ONE HARD CONSTRAINT: Instagram crops this to 4:5 in the profile grid
+     and puts the caption near the bottom. EVERYTHING THAT CARRIES THE IDEA
+     SITS BETWEEN y = 300 AND y = 1600. The masthead may sit above it; the
+     contact block and handle sit below it and are expected to be cropped away
+     in the grid view.
+     ============================================================ */
+
+  :root{
+    /* ---- PER-POST: from scripts/derive_colors.py ---- */
+    --ground:      #799D84;
+    --ground-deep: #64886F;
+    --accent:      #344B3B;
+    --duo-lo:      #283E2F;   /* photo shadows lift to this  */
+    --duo-hi:      #DDE3DF;   /* photo highlights fall to it */
+
+    /* ---- INVARIANT ---- */
+    --white:  #FFFFFF;
+    --cream:  #F8FBF9;
+    --pad-edge: 78px;         /* 78 on a reel cover, not 46 */
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  /* ---- INVARIANT: the export contract. Do not touch. ---- */
+  body{ background:#8f8f8f; display:flex; align-items:center; justify-content:center;
+        font-family:'Poppins',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  @media (min-width:1200px){
+    body{ padding:40px; min-height:100vh; }
+    .canvas{ box-shadow:0 30px 90px rgba(0,0,0,.4); }
+  }
+  .canvas{ position:relative; width:1080px; height:1920px; overflow:hidden; flex:none;
+           background:var(--ground); }
+  .grain{ position:absolute; inset:0; z-index:9; pointer-events:none; opacity:.038;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .stage{ position:absolute; inset:0; z-index:6; }
+
+  /* ---- INVARIANT: brand furniture ---- */
+  .mast{ position:absolute; left:var(--pad-edge); top:104px;
+         display:flex; align-items:center; gap:20px; }
+  .mast img{ height:72px; width:auto; display:block; }
+  .mast .wm b{ display:block; font-size:27px; font-weight:600; letter-spacing:3.4px;
+               color:var(--white); line-height:1; }
+  .mast .wm span{ display:block; margin-top:8px; font-size:12.5px; font-weight:500;
+                  letter-spacing:2.2px; text-transform:uppercase;
+                  color:rgba(255,255,255,.76); line-height:1.35; }
+  .handle{ position:absolute; left:var(--pad-edge); bottom:96px; z-index:7;
+           font-size:26px; font-weight:500; letter-spacing:.4px; color:rgba(255,255,255,.72); }
+
+  /* ---- INVARIANT: the contact block. Exact strings, never a placeholder.
+     The CTA strip's 4.136 aspect does not work in a 9:16 column, so on a reel
+     cover these are typeset. You may restyle them; you may not change them. */
+  .appt{ position:absolute; left:var(--pad-edge); bottom:198px; z-index:7; }
+  .appt .hours{ font-size:34px; font-weight:600; letter-spacing:.4px; color:var(--white); }
+  .appt .book{ margin-top:10px; font-size:26px; font-weight:400; color:rgba(255,255,255,.88); }
+  .appt .pill{ margin-top:22px; height:76px; border-radius:999px;
+    background:color-mix(in srgb, var(--accent) 72%, transparent);
+    -webkit-backdrop-filter:blur(14px) saturate(1.2); backdrop-filter:blur(14px) saturate(1.2);
+    border:1.5px solid rgba(255,255,255,.30);
+    display:inline-flex; align-items:center; gap:18px; padding:0 38px 0 10px;
+    box-shadow:0 12px 30px rgba(6,12,8,.34); }
+  .appt .pill .wa{ width:56px; height:56px; border-radius:50%; flex:none;
+                   background:rgba(255,255,255,.16);
+                   display:flex; align-items:center; justify-content:center; }
+  .appt .pill .wa svg{ width:34px; height:34px; color:var(--white); }
+  .appt .pill span{ font-size:38px; font-weight:600; color:var(--white); letter-spacing:1px; }
+
+  /* ============================================================
+     COMPOSITION KIT
+     ============================================================ */
+
+  /* Type. Starting points — scale them to your composition. A reel cover is
+     read at thumbnail size: the hook should survive being 200px wide. */
+  .display{ font-family:'Playfair Display',Georgia,serif; font-weight:900;
+            font-size:118px; line-height:1.0; letter-spacing:-1px;
+            color:var(--cream); text-transform:uppercase; }
+  .display .it{ display:block; font-style:italic; text-transform:none;
+                font-size:157px; letter-spacing:-1px; line-height:.96; }
+  .lede{ font-size:42px; font-weight:500; line-height:1.38; letter-spacing:-.3px;
+         color:rgba(255,255,255,.95); }
+
+  /* PHOTOGRAPH — optional, and the composition decides where it goes.
+     This grades any image to the ground: desaturate, then lift shadows to
+     --duo-lo and drop highlights to --duo-hi, with ~16% of the untreated
+     frame back through so it still reads as a photograph. Drop a file in the
+     reel's own assets/ and retune only .photo img { width / top }. */
+  .photo .frame{ position:absolute; inset:0; overflow:hidden; isolation:isolate; }
+  .photo img{ position:absolute; left:50%; transform:translateX(-50%); display:block;
+              filter:grayscale(1) brightness(1.03) contrast(1.08); }
+  .photo .lo,.photo .hi{ position:absolute; inset:0; pointer-events:none; }
+  .photo .lo{ background:var(--duo-lo); mix-blend-mode:lighten; }
+  .photo .hi{ background:var(--duo-hi); mix-blend-mode:multiply; }
+  .photo .raw{ position:absolute; inset:0; overflow:hidden; opacity:.16; pointer-events:none; }
+  .photo .raw img{ filter:none; }
+
+  /* ============================================================
+     COMPOSE — your CSS for this cover's layout goes here.
+     ============================================================ */
+
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- ============================================================
+       COMPOSE — the field and the imagery.
+       One hue plus white. No third colour anywhere on a reel cover.
+       If a white panel sits behind a single word, it appears EXACTLY ONCE —
+       that is the campaign's signature device and it marks the one word that
+       carries the whole idea.
+       ============================================================ -->
+
+  <div class="grain"></div>
+
+  <div class="stage">
+
+    <!-- INVARIANT: masthead -->
+    <div class="mast">
+      <img src="../../../assets/logo/logo-cream-mark.png" alt="">
+      <div class="wm">
+        <b>DR. MONA ALI</b>
+        <span>Psychiatric &amp; Drug<br>Rehabilitation Clinic</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         COMPOSE — the hook. Between y=300 and y=1600.
+         ============================================================ -->
+
+    <!-- INVARIANT: the contact block, exactly these strings -->
+    <div class="appt">
+      <div class="hours">MON&ndash;SAT &nbsp;|&nbsp; 6:00 &ndash; 9:00 PM</div>
+      <div class="book">Book your appointment now:</div>
+      <div class="pill">
+        <span class="wa">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-.9-.3-1.6-.6-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.7-.3h.5c.2 0 .4-.1.7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5c-.1.2-.3.3-.1.6.1.3.6 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.3.2.1.4.1.5-.1l.8-.9c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.6-.1 1.3z"/>
+          </svg>
+        </span>
+        <span>0315-7090609</span>
+      </div>
+    </div>
+
+    <!-- INVARIANT: bottom-left -->
+    <div class="handle">@dr.monaalisardar</div>
+  </div>
+</div>
+</body>
+</html>

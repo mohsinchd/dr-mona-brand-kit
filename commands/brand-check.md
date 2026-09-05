@@ -30,5 +30,16 @@ $ARGUMENTS
    - fonts actually loaded; nothing clipped at an edge; nothing colliding
    - on a suicide, self-harm or addiction topic, the safe-messaging rules in
      `references/copy-voice.md`
-4. Report a short pass/fail list. For each failure, name the slide, the rule, and the fix.
+4. **Then check the design, not just the rules.** Open the two previous posts of this
+   format alongside it and answer:
+   - Does this differ from them on at least four of the eight axes in
+     `references/composition.md` §4? Name the four.
+   - At thumbnail size, would it be mistaken for the previous post?
+   - Is there one unarguable focal point, or do two elements compete?
+   - Is any type smaller than it needs to be? (Larger is almost always right here.)
+   - Does every edge align with another edge, or is something sitting at a coincidental x?
+   - Is any ornament merely filling space?
+   Within one carousel this inverts: the slides are meant to hold together, so flag a
+   slide whose *architecture* breaks the set.
+5. Report a short pass/fail list. For each failure, name the slide, the rule, and the fix.
    Do not change any file unless the user asks — this is an audit.

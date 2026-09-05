@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dr. Mona — {{TOPIC}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,900&family=Poppins:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     THE FRAME  ·  1080 × 1080   (portrait: change .canvas height to 1350)
+
+     This file is a CHASSIS, not a layout. Everything in the two "INVARIANT"
+     blocks below is fixed and must survive to the final file. Everything else —
+     the composition, the background artwork, the type arrangement, whether
+     there are cards at all — is YOUR design decision for this post.
+
+     DO NOT fill this in like a form. Read references/composition.md, design a
+     composition for this specific topic, then write the CSS and markup for it
+     in the COMPOSE regions.
+     ============================================================ */
+
+  :root{
+    /* ---- PER-POST: paste the block from scripts/derive_colors.py ---- */
+    --ground:      #799D84;
+    --ground-deep: #64886F;
+    --accent:      #344B3B;
+
+    /* ---- INVARIANT: fixed on every post, whatever the ground ---- */
+    --cream:    #FDFCF5;
+    --ink:      #2A2530;
+    --ink-soft: #514A5C;
+    --panel: linear-gradient(152deg, rgba(253,252,245,.60) 0%,
+                                     rgba(253,252,245,.32) 54%,
+                                     rgba(253,252,245,.46) 100%);
+    --pad-edge: 46px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  /* ---- INVARIANT: the export contract. Do not touch. -------------------
+     Preview padding sits behind the media query, so a headless window sized
+     exactly to the canvas screenshots it exactly — no crop step. Removing the
+     guard makes Chrome silently clip ~40px off every edge. */
+  body{ background:#8f8f8f; display:flex; align-items:center; justify-content:center;
+        font-family:'Poppins',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  @media (min-width:1200px){
+    body{ padding:40px; min-height:100vh; }
+    .canvas{ box-shadow:0 30px 90px rgba(0,0,0,.35); }
+  }
+  .canvas{ position:relative; width:1080px; height:1080px; overflow:hidden;
+           background:var(--ground); flex:none; }
+  /* grain — keep it. It is what stops the gradients banding. */
+  .canvas::after{ content:''; position:absolute; inset:0; z-index:2; opacity:.26; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E"); }
+  .art{ position:absolute; inset:0; z-index:3; pointer-events:none; }
+  .stage{ position:absolute; inset:0; z-index:5; padding:24px var(--pad-edge) 66px; }
+
+  /* ---- INVARIANT: the brand furniture. Sizes and positions are fixed. ----
+     The masthead may sit top-left or top-centre. The handle NEVER moves from
+     bottom-left; the swipe arrow NEVER moves from bottom-right. */
+  .lockup{ display:flex; align-items:center; gap:12px; }
+  .lockup img{ height:54px; width:auto; display:block; }
+  .lockup b{ display:block; font-size:22px; font-weight:600; letter-spacing:1.5px;
+             color:var(--cream); line-height:1.1; }
+  .lockup span{ display:block; font-size:11.5px; font-weight:500; letter-spacing:1.8px;
+                text-transform:uppercase; color:rgba(253,252,245,.78); margin-top:3px; }
+  .handle-bl{ position:absolute; left:var(--pad-edge); bottom:26px; z-index:6;
+              font-size:20px; font-weight:600; letter-spacing:.6px; color:rgba(253,252,245,.92); }
+  .swipe-cue{ position:absolute; right:var(--pad-edge); bottom:32px; z-index:6;
+              color:rgba(253,252,245,.92); line-height:0; }
+  .swipe-cue svg{ width:200px; height:16px; display:block; }
+
+  /* ============================================================
+     COMPOSITION KIT — primitives, not a layout.
+     Use them, extend them, or write your own. They exist so the brand
+     material (glass, the type voices) is one line away and you can spend
+     your effort on the arrangement.
+     ============================================================ */
+
+  /* glass — the one panel recipe. Never mix glass with an opaque panel. */
+  .glass{
+    background:var(--panel);
+    -webkit-backdrop-filter:blur(22px) saturate(1.28); backdrop-filter:blur(22px) saturate(1.28);
+    border:1.5px solid rgba(255,255,255,.55); border-radius:24px;
+    box-shadow:0 16px 36px rgba(48,36,62,.16), inset 0 1px 0 rgba(255,255,255,.80),
+               inset 0 0 0 1px rgba(75,58,97,.09);
+  }
+
+  /* the four type voices. Sizes here are STARTING POINTS — scale them to your
+     composition. Bigger is almost always the right call. */
+  .display{ font-family:'Playfair Display',Georgia,serif; font-weight:900;
+            text-transform:uppercase; color:var(--ink); line-height:.96;
+            font-size:88px; letter-spacing:.5px; }
+  .display .it{ font-style:italic; }        /* the roman/italic pair IS the styling */
+  .script { font-family:'Caveat',cursive; font-weight:700; color:var(--ink);
+            line-height:1.05; font-size:52px; }
+  .eyebrow{ font-size:17px; font-weight:700; letter-spacing:6px;
+            text-transform:uppercase; color:var(--accent); }
+  .body   { font-size:25px; font-weight:500; line-height:1.5; color:var(--ink-soft); }
+
+  /* a hairline that fades at both ends — reads on glass, where a flat rule dies */
+  .hair{ display:block; height:1.6px; width:100%;
+         background:linear-gradient(90deg, transparent, var(--accent), transparent); opacity:.55; }
+
+  /* an illustration disc: 48-viewBox line art at 51px, stroke 1.9.
+     A 24-viewBox UI icon scaled up looks thin here — draw at 48. */
+  .disc{ width:96px; height:96px; border-radius:50%;
+         display:flex; align-items:center; justify-content:center;
+         background:color-mix(in srgb, var(--ground-deep) 30%, transparent);
+         border:1.5px solid color-mix(in srgb, var(--accent) 34%, transparent);
+         color:var(--accent); }
+  .disc svg{ width:51px; height:51px; }
+
+  /* ============================================================
+     COMPOSE — your CSS for this post's layout goes here.
+     ============================================================ */
+
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- ============================================================
+       COMPOSE — background artwork.
+       Every canvas needs depth under the content: a light wash from above, a
+       darker one bleeding off the bottom, and drawn linework in --ground-deep
+       and --accent. WHAT that linework is, is a design decision — curves,
+       arcs, a dot field, concentric rings, botanical fronds, a faint grid,
+       rays. Vary it per post; this is where a slide gets its character.
+       Style SVG through CSS classes (stroke:var(--accent)) — a `stroke="var(…)"`
+       attribute does not resolve.
+       ============================================================ -->
+  <svg class="art" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  </svg>
+
+  <div class="stage">
+
+    <!-- INVARIANT: the masthead. Top-left by default; top-centre is allowed. -->
+    <div class="lockup">
+      <img src="../../../assets/logo/logo-cream-mark.png" alt="Dr. Mona Ali clinic mark">
+      <div><b>DR. MONA ALI</b><span>Psychiatric &amp; Drug Rehabilitation Clinic</span></div>
+    </div>
+
+    <!-- ============================================================
+         COMPOSE — the slide itself.
+         The stage is a plain block; give it whatever layout this composition
+         needs (flex column, grid, absolute placement). Keep the bottom 66px
+         clear: the handle and arrow are absolute and have left the flow.
+         ============================================================ -->
+
+  </div>
+
+  <!-- INVARIANT: bottom-left on every slide, never anywhere else -->
+  <div class="handle-bl">@dr.monaalisardar</div>
+
+  <!-- INVARIANT: carousel slides 1…N-1 only.
+       DELETE this whole block on a static post and on the last carousel slide. -->
+  <div class="swipe-cue" aria-label="Swipe for the next slide">
+    <svg viewBox="0 0 200 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 8H176" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M174 1.4 198 8 174 14.6Z" fill="currentColor"/>
+    </svg>
+  </div>
+</div>
+</body>
+</html>

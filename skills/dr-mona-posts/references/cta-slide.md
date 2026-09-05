@@ -1,23 +1,35 @@
 # The CTA slide
 
-The CTA is a **full page**, not an enlarged strip. It is centre-anchored throughout,
-which is what makes it read as a closing card rather than a repeat of the message slide.
+The closing card of a carousel. Design it like any other slide (`composition.md`) — these
+are its constraints, not its layout.
+
+**What the closing card must do**
+
+| | |
+|---|---|
+| Carry the client's CTA artwork | on a glass panel, ~250px of canvas height at full content width |
+| Read **differently** from the message slides | so it lands as a close, not a repeat |
+| Say one closing thing | a short headline and a line of lede — not a summary of the carousel |
+| Keep the furniture | masthead, handle bottom-left. **No swipe arrow.** |
+
+**The change of register** is the point. Centre-anchoring it while the message slides run
+left is the reliable move, and the version below is a treatment that has shipped:
 
 ```
 centred glass circle (138px) holding the logo mark in --accent, 86px
    ↳ concentric "welcome rings" behind it: r=122 solid, r=168 dashed, r=216 faint
-DR. MONA ALI   (30px, 3px tracking, cream)
-subtitle       (13px, 2.6px tracking, uppercase)
+DR. MONA ALI  (30px / 3px tracking / cream) · subtitle (13px / 2.6px / uppercase)
 ─── EYEBROW ───
-Headline line 1   (Playfair 900, 66px, --ink)
-Headline line 2   (Caveat 700, 100px, --accent, squiggle underline)
-lede              (24px, max-width 790px)
-leaf ornament     (margin-top:auto — splits the slack either side)
-▸ the client's CTA artwork on a glass card
+headline line 1  (Playfair 900, 66px, --ink)
+headline line 2  (Caveat 700, 100px, --accent, squiggle underline)
+lede             (24px, max-width 790px)
+leaf ornament    (margin-top:auto — splits the slack either side)
+▸ the CTA artwork on a glass card
 handle bottom-left
 ```
 
-No swipe arrow on the last slide.
+Use it when it suits the post; do something else when it does not. A bare field with the
+artwork and four words above it closes just as well.
 
 ## The logo mark inside the glass circle
 
@@ -57,4 +69,5 @@ MON-SAT | 6:00 – 9:00 PM   ·   0315-7090609   ·   MBBS, MD, MRCPsych(UK)
 
 Briefs that supply placeholders (`dr-mona.com`, `1-800-…`) are ignored in favour of these.
 
-Start from `templates/slide-cta.html`.
+Start from `templates/frame-square.html` and delete the `.swipe-cue` block.
+`examples/carousel-cta.html` is the treatment sketched above, built out.

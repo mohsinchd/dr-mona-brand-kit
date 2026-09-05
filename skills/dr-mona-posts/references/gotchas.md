@@ -16,5 +16,7 @@ Check this list before reporting anything done.
 | Cut-out outline squared off under the feet | dilating a mask at its own bbox size | `np.pad(mask, M)` with `M >` the largest dilation, **before** dilating |
 | Logo subtitle turns to mush | the full lockup was scaled below ~250px wide | use the icon-only mark and typeset the wordmark in Poppins beside it |
 | The post "feels bloated" | a title, mantra, lede, row, closing line *and* CTA on one canvas | split into a two-slide carousel — never compress |
+| A tall stack ends up almost touching the handle | `margin-top:auto` let the stack grow until it hit the stage's `padding-bottom:66px` — which is minimum *clearance*, not a comfortable gap | a full-width panel reads as a hard edge: give the stack `margin-bottom:16-24px` on top of the padding, or drop a row |
+| The composition is balanced but forgettable | it was filled, not designed — the slack landed wherever `auto` put it | go back to `composition.md`: name the focal point, then place everything relative to it |
 | The title's italic line runs to the canvas edge | Playfair italic is noticeably wider than the roman at the same size | drop line two to 78px, or shorten the words — the italic line is what overruns first, so measure that one |
 | Cards are too tall / text overflows a card | card copy longer than ~14 words | cut the copy; do not shrink the type |
